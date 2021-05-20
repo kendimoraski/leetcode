@@ -3,7 +3,7 @@
  * @return {number[][]}
  */
 var generate = function(numRows) {
-    
+    // this is dynamic programming, bottoms up
     const ans = []
 
     for (let row = 0; row < numRows; row++) {
@@ -21,7 +21,9 @@ var generate = function(numRows) {
         ans.push(inner)
     }
     return ans
-}
+} // Time O(n^2) where n is the number of rows; Space O(n) 
+// at worst, you can actually calculate the time complexity because of the constraint that numRows <= 30; it's the rolling sum of the 30 numbers
+// you could technically simplify n^2 down to O(1) 30 times
 
 // index 1 equals index 0 + 1
 // index 1 equals index 0 + 1
