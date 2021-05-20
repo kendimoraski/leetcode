@@ -3,27 +3,29 @@
  * @return {number[][]}
  */
 var generate = function(numRows) {
-    const triangle = []
-    // base cases
-    if (numRows === 0) return triangle
     
-    // second base case
-    triangle.push([])
-    triangle[0].push(1)
-            
-    for (let rowNum = 1; rowNum < numRows; rowNum++) {
-        const row = [];
-        const prevRow = triangle[rowNum - 1]
-                
-        row.push(1)
-                
-        for (let j = 1; j < rowNum; j++) {
-            row.push(prevRow[j - 1] + prevRow[j])   
+    const ans = []
+
+    for (let row = 0; row < numRows; row++) {
+        const inner = []
+        // the sum of an index is always equal the sum of the previous element's number at the same index + the index before
+        for (let j = 0; j < row + 1; j++) {
+            if (j === 0 || j === row) {
+                inner.push(1)
+            } else {
+                let val1 = ans[row - 1][j - 1] 
+                let val2 = ans[row - 1][j]
+                inner.push(val1 + val2)
+            }
         }
-                
-        row.push(1);
-        triangle.push(row)
-        
+        ans.push(inner)
     }
-    return triangle
-};
+    return ans
+}
+
+// index 1 equals index 0 + 1
+// index 1 equals index 0 + 1
+// index 2 equals index 1 + 2
+// index 1 equals index 0 + 1
+// index 2 equals index 1 + 2
+// index 3 equals index 2 + 3
