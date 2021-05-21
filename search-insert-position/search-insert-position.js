@@ -27,9 +27,6 @@ var searchInsert = function(nums, target) {
         } else if (nums[mid] > target) {
             right = mid - 1
         }
-        // } else if (left === right - 1 && nums[left] !== target && nums[right] !== target) {
-        //     return right
-        // }
     }
     return right + 1
 };
