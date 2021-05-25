@@ -11,22 +11,34 @@
  * @return {ListNode}
  */
 var removeElements = function(head, val) {
-    // 1.  initialize a new head to contain the non-`val` values and ultimately be returned
-    const ans = new ListNode()
-    // initialize a new iterator variable
-    let prev = ans
-    // 3. compare the head's val with the target val
-    while (head) {
-        // 4. if it doesn't match, add it to the new head
-        if (head.val !== val) {
-            prev.next = head 
-            prev = prev.next  
-        }
+    
+    if (!head) return head
+    
+    // for the case where we start with the val
+    while (head && head.val === val) {
         head = head.next
     }
-    // after we exit the while loop, we want to make the end of prev null
-    prev.next = null
-    // 5. repeat 3-4a until holder and head are empty
-    // 6. return the new head
-    return ans.next
+    
+    // initialize a new iterator variable
+    let prev = head
+    // initialize a variable to eventually hold onto the next values so they don't get lost when we dispose of a node
+    let next
+    
+    // while `prev` exists
+    while (prev) {    
+        // compare the head (prev)'s value with the argument `val`
+        if (prev.next && prev.next.val === val) {
+            // store the next node and beyond into `next`
+            next = prev.next
+            // take care of the situation where there are unknown amount of val integers
+            while (next && next.val === val) {
+                next = next.next
+            }
+            prev.next = next
+        }
+        // move prev
+        prev = prev.next
+    }
+    // return the newly rearranged head
+    return head
 };
