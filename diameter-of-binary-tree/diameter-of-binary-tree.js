@@ -28,10 +28,10 @@ var diameterOfBinaryTree = function(root) {
         if (!root) return currentDiameter
         // count the number of nodes to the bottom on the left first
         // count the number of nodes to the bottom right
-        // add the left number of edges to the right number of edges to get the current diameter
         // (also save these recursive calls as variables so the recursive function is not called too many times for efficiency's sake) 
         const left = getDiameter(root.left)
         const right = getDiameter(root.right)
+        // add the left number of edges to the right number of edges to get the current diameter
         currentDiameter = left + right
         // compare the current diameter with the highest diameter
         if (currentDiameter > highestDiameter) {
@@ -42,7 +42,12 @@ var diameterOfBinaryTree = function(root) {
         // when you finish the recursive function, go back up a node BY returning the greater of the two diameters
         return Math.max(left, right) + 1
     }
+    
+    // invoke the recursive function with the original argument `root`
     getDiameter(root)
     // after checking everything, return the highest diameter overall
     return highestDiameter
 };
+
+// Time O(n) where n is the number of nodes in the tree
+// Space O(n) where n is the size of the call stack (the number of nodes in the tree)
