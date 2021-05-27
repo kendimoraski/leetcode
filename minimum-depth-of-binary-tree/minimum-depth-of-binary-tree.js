@@ -23,7 +23,9 @@ var minDepth = function(root) {
         let currMinDepth = 0
         
         // take care of base cases
+        // if there's no root at all, no depth
         if (!root) return currMinDepth
+        // if there are no children but just a root, the depth is 1
         if (!root.right && !root.left) return currMinDepth + 1
         
         // check the path from root to left and compare with current min depth; reassign or don't accordingly
@@ -33,6 +35,7 @@ var minDepth = function(root) {
         // if left doesn't exist, right is automatically currMinDepth
         if (!root.left) {
             currMinDepth = right
+        // if right doesn't exist, left is automatically currMinDepth
         } else if (!root.right) {
             currMinDepth = left
         // if the left root exists and it's less than or equal to right
@@ -43,10 +46,10 @@ var minDepth = function(root) {
             currMinDepth = right
         }
         
-        // recursion stops when we've reached a leaf (null) AND we go back to the root by returning the lesser depth
-        // remember that the root by itself counts as depth 1
+        // recursion stops when we've reached a leaf (null) AND we go back to the root by returning the currMinDepth
+        // remember that the root by itself counts as depth 1 so we add 1
         return currMinDepth + 1
     }
-    // return the curr min depth
+    // return the result of invoking the recursive function
     return getMin(root)
 };
