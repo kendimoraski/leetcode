@@ -19,47 +19,48 @@ var spiralOrder = function(matrix) {
     // PSEUDO CODE: 
     // initialize output array, hash table, numRows, numCols
     const output = []
-    const hash = {}
     const numRows = matrix.length
     const numCols = matrix[0].length
+    
+    const seen = []
+    for (let i = 0; i < numRows; i++) {
+        const seen_row = []
+        for (let j = 0; j < numCols; j++) {
+            seen_row.push(false)
+        }
+        seen.push(seen_row)
+    }
+    console.log(seen)
+    
     // initialize variables for row and col
     let row = 0
     let col = 0
     // initialize the array for directions
-    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+    const dr = [0, 1, 0, -1]
+    const dc = [1, 0, -1, 0]
     // initialize a directions index starting at 0 because we're going right first
     let dirIndex = 0
+    // edge case 
+    if (matrix.length === 0) return output
+    
     // single for loop through the matrix
     for (let i = 0; i < numRows * numCols; i++) {
         // these variables save typing time
-        let value = matrix[row][col]
-        const deltaRow = directions[dirIndex][0]
-        const deltaCol = directions[dirIndex][1]
+        output.push(matrix[row][col])
+        seen[row][col] = true
+        let deltaRow = row + dr[dirIndex]
+        let deltaCol = col + dc[dirIndex]
         // if you hit a visited number
-        if (hash[value]) {
+        if (0 <= deltaRow && deltaRow < numRows && 0 <= deltaCol && deltaCol < numCols && !seen[deltaRow][deltaCol]) {
             // go back the way you came from
-            row -= directions[dirIndex][0]
-            col -= directions[dirIndex][1]
-            // change direction
+            row = deltaRow
+            col = deltaCol
+        } else {
             dirIndex = (dirIndex + 1) % 4
             // increase row and column in the correct direction
-            row += directions[dirIndex][0]
-            col += directions[dirIndex][1]
-            // update the value because integers are set by value
-            value = matrix[row][col]
+            row += dr[dirIndex]
+            col += dc[dirIndex]
         }
-        // push its value to the output array 
-        output.push(value)
-        // store it in the hash table
-        hash[value] = true
-        // if I reach an edge
-        if (col + deltaCol === numCols || row + deltaRow === numRows || col + deltaCol < 0 || row + deltaRow < 0) {
-            // change direction
-            dirIndex = (dirIndex + 1) % 4
-        }
-        // increment row and column every time no matter what 
-        row += directions[dirIndex][0]
-        col += directions[dirIndex][1]
     }
     // return the output array when the loop is finished
     return output
