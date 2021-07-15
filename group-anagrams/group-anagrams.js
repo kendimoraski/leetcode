@@ -3,6 +3,7 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
+   /*
     // loop through str
     // store letters in a given string as the "key" of the table (which would be an alphabetically sorted str)
     // when I get to the next string, check if that combination of letters already exists in hash
@@ -24,4 +25,19 @@ var groupAnagrams = function(strs) {
     }
     // return the table
     return Object.values(hash)
+
+// Time O(n * 2m + m(log m)) where n is the length of strs, and m is the length of each string inside
+// Space O(2n * m) where n is the length of strs and m is the number of anagrams for each combo
+*/
+// Map version
+    if (strs.length === 0) return new Array()
+    const ans = new Map()
+    for (const s of strs) {
+        const ca = s.split('') 
+        ca.sort()
+        const key = ca.join('')
+        if (!ans.has(key)) ans.set(key, new Array())
+        ans.get(key).push(s)
+    }
+    return Array.from(ans.values())
 };
