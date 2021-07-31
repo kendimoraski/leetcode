@@ -10,6 +10,7 @@
  * @return {ListNode}
  */
 var reverseList = function(head) {
+    /*
     // start at the beginning
     // keep track of 3 things in 3 pointers:
         // answer node (what i will return)
@@ -41,4 +42,15 @@ var reverseList = function(head) {
     }
     // 5. return the answer node's next value (these are the actual values)
     return ans.next
+    */
+    
+    // Recursive solution
+    if (!head || !head.next) return head
+    const p = reverseList(head.next)
+    // This gets the node after the current node to POINT TO the current node
+    head.next.next = head
+    // The head needs to ultimately point to null (in this case, the first value 1)
+    head.next = null
+    // Make the recursive call
+    return p
 };
