@@ -62,7 +62,7 @@ var addTwoNumbers = function(l1, l2) {
             carry = 1
             sum -= 10
         }
-        // initialize a new linked list node on the answerand set that node's val equal to the sum
+        // initialize a new linked list node on the answer and set that node's val equal to the sum
         prev3.next = new ListNode(sum)
         // move the single prev down
         remaining = remaining.next
