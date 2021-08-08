@@ -12,6 +12,7 @@
  * @return {ListNode}
  */
 var getIntersectionNode = function(headA, headB) {
+    // Make arrays for each linked list
     const headAArray = []
     let tempA = headA
     while (tempA) {
@@ -24,7 +25,7 @@ var getIntersectionNode = function(headA, headB) {
         headBArray.push(tempB.val)
         tempB = tempB.next
     }
-    
+    // Reassign the temp values to the LLs themselves
     tempA = headA
     tempB = headB
     if (headAArray.length > headBArray.length) {
